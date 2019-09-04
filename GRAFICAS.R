@@ -1,3 +1,0 @@
-mariana <- cristian
-
-# un comentario
