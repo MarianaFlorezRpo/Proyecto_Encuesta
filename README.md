@@ -1,5 +1,5 @@
 # Proyecto Encuesta
-Este repositorio contiene los avances del proyecto encuesta deserción estundiantil desarrollado por SemilleroR-FacCa
+Este repositorio contiene los avances del proyecto encuesta deserción estundiantil desarrollado por [SemilleroR-FacCa](https://unal-semilleror-facca.github.io)
 
 ## Índice
 
@@ -16,4 +16,10 @@ Aquí se encuentra la información de la encuesta
 
   - Preguntas que conforman la encuesta
   - Encuesta.xls
-  - Gráficos
+  - Gráficos  
+
+<br>
+
+***Sponsored by***
+
+<img src="https://raw.githubusercontent.com/kawaiiloser/logo_semillero-R/master/logo3.png" alt="drawing" width="100"/>
