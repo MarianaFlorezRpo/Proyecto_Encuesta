@@ -3,20 +3,20 @@ Este repositorio contiene los avances del proyecto encuesta deserción estundian
 
 ## Índice
 
-### Directorios de integrantes
+### Integrantes
 Aquí se encuentra información pertinente de los desarrolladores del proyecto
 
-  - [Mariana](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Mariana)
-  - [Federico](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Federico)
-  - [Cristian](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Cristian)
-  - [Duvancho](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Duvancho)
+  - [Mariana](https://github.com/MarianaFlorezRpo)
+  - [Kawaiiloser](https://github.com/kawaiiloser)
+  - [Cristian](https://github.com/riveracrist)
+  - [Duvancho](https://github.com/Duvancho321)
+  - [Edimer](https://github.com/Edimer)
   
-### Contenido del repositorio
-Aquí se encuentra la información de la encuesta
+### Desarrollo de la encuesta
+Aquí se encuentra la información del proyecto, y algunas herramientas utilizadas en su elaboración.
 
-  - Preguntas que conforman la encuesta
-  - Encuesta.xls
-  - Gráficos  
+  - [Link](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Encuesta) 
+  
 
 <br>
 
