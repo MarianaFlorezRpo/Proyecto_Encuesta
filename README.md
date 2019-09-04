@@ -8,7 +8,7 @@ Aquí se encuentra información pertinente de los desarrolladores del proyecto
 
   - [Mariana](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Mariana)
   - [Federico](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Federico)
-  - [Cristian](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Cristian R.)
+  - [Cristian](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Cristian)
   - [Duvancho](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Duvancho)
   
 ### Contenido del repositorio
