@@ -1,5 +1,4 @@
-[Inicio](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta)
-[Encuesta](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Encuesta)
+[Inicio](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta) | [Encuesta](https://github.com/MarianaFlorezRpo/Proyecto_Encuesta/tree/master/Encuesta)
 
 <br>
 
