@@ -1,0 +1,193 @@
+---
+output: 
+  pdf_document:
+    citation_package: natbib
+    keep_tex: false
+    fig_caption: true
+    latex_engine: pdflatex
+    template: plantilla_latex.tex
+title: "Análisis descriptivo y exploratorio de la deserción estudiantil en la Universidad Nacional de Colombia sede Medellín"
+author:
+- name: Semillero R - FacCA
+  affiliation: Universidad Nacional de Colombia - sede Medellín
+thanks: "**Autor de contacto**: jajaja@unal.edu.co."
+abstract: "__Resumen__: En este documento se dan las instrucciones de presentación de trabajos para el Rday Medellín 2019. Este resumen debe contener i) el objetivo del trabajo; ii) el diseño metodológico usado en el trabajo; iii) hallazgos o principales resultados encontrados; y iv) las implicaciones prácticas. El resumen del trabajo debe tener máximo 250 palabras."
+keywords: "pandoc, r markdown, knitr"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+bibliography: master.bib
+biblio-style: apsr
+endnote: no
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T,
+                      message = F,
+                      error = F,
+                      warning = F)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(ggsci)
+library(ggpubr)
+library(readxl)
+
+encuesta <- read_xlsx("Encuesta_semillero.xlsx") %>% 
+  mutate(desertar = if_else(condition = p4 == "Si", true = 1, false = 0))
+df2 <- read.table("conteo.txt")
+df3 <- read.table("horas1.txt") %>% mutate(Creditos=as.factor(Creditos))
+df4 <- read.table("horas2.txt") %>% mutate(x=as.factor(x))
+
+```
+# Introducción
+
+La deserción estudiantil se define según el ministerio de educación nacional como “ Estado de un estudiante que de manera voluntaria o forzosa no registra matrícula por dos o más períodos académicos consecutivos del programa en el que se matriculó; y no se encuentra como graduado, o retirado por motivos disciplinarios” [@MinisteriodeEducacionNacional]. Para hablar de deserción estudiantil y sus causas es pertinente conocer cómo se organiza el sistema de educación superior en Colombia, el cual esta divido en dos niveles conocidos como pregrado y posgrado, el pregrado a su vez se divide en tres niveles de formación que son: Técnico profesional, Tecnológico y Profesional, y el posgrado se divide en Maestrías y doctorados [@MinisteriodeeducacionNacionala]. La deserción  estudiantil en educación superior en Colombia es documentada y consolidada por el ministerio de educación a través del sistema para la Prevención de la Deserción en las Instituciones de Educación Superior “SPADIES” [@MinisteriodeeducacionNacional1], el cual permite conocer y registrar aspectos socioeconómicos, académicos, institucionales e individuales de los estudiantes con el fin de estudiar este fenómeno. La deserción a través del SPADIES es analizada de dos maneras, por periodo académico “desertores un año después matriculados dos semestres atrás” y por cohorte; las tasas más altas registradas para los años 2015 y 2016 es para la técnica profesional ,mientras que la más baja es para el nivel universitario; Sin embargo, las cifras son alarmantes en todos los niveles de educación superior ya que la tasa de deserción por cohorte de todos los niveles de educación ronda entre un 45 % y un 57 % [@SPADIES2017]. Para el nivel universitario en Colombia se registra una tasa de deserción estudiantil por cohorte de 46,1% en el año 2015 y en Antioquia para el mismo año se registra una tasa de 47,1% [@SPADIES2016]. La tasa de deserción por perdido para el año 2015 en Colombia para el nivel universitario fue de 9,25 % y a nivel de Antioquia se registró una deserción por periodo en el nivel universitario de 9,55% [@MinisteriodeEducacionNacional2016]. Antioquia es el segundo departamento con más instituciones de educación superior, contando a la fecha de 2015 con 52 instituciones, 15 de ellas de carácter oficial, 35 de carácter privado y 2 de régimen especial, oferta un total de 1.907 programas curriculares de los cuales 629 corresponden a programas universitarios, captura aproximadamente el 15% de la población de educación superior inscrita del país y gradúa aproximadamente el 13% de estudiantes de educación superior de Colombia [@MinisteriodeEducacionNacional2016]. Medellín siendo la capital de Antioquia cuenta con el Observatorio De Educación Superior De Medellín “ODES” el cual se encarga entre muchas cosas del monitoreo y seguimiento de indicadores de educación superior como lo es la deserción estudiantil [@AlcaldiadeMedellin2019]. El ODES retomando información del SPADIES hace un análisis de la deserción estudiantil a nivel Medellín en el cual se registra una tasa de deserción por periodo del 11,9 % para el año 2015 [@SPADIES2017]. Dentro de la región antioqueña la Universidad Nacional de Colombia Sede Medellín ocupa el puesto 19 en tasas de deserción, registrando históricamente un índice de deserción por cohorte de 50,1 % al año 2010[@UniversidadNacionaldeColombiaSedeMedellin.OficinadePlaneacion2011].
+
+# Metodología
+
+## Recolección de Información
+
+Los datos para realizar el análisis descriptivo de la percepción de deserción estudiantil fueron recolectados alrededor de todo el campus universitario utilizando un cuestionario de 35 preguntas, las cuales incluían variables continuas y categóricas. La pregunta objetivo en referencia a la interrupción de los estudios universitarios es una variable categórica lo que dirige el análisis a la estimación de una proporción. Para la estimación del parámetro de interés se usó un muestreo aleatorio simple con un nivel de confianza del 95%, un límite en el error de estimación de 0,05 y una varianza de 0,25 correspondiente a una proporción de 0,5. El tamaño de la población empleado fue obtenido de la información disponible en la oficina de planeación de la sede Medellín en el cual se reportan 10.594  estudiantes de pregrado al semestre 2018-1 [@UniversidadNacionaldeColombiaSedeMedellin.OficinadePlaneacion2018]. Para el cálculo del tamaño de muestra necesario para realizar estimaciones correctas se utilizó la aplicación Shiny del semillero de R de la escuela de estadística de la Universidad Nacional de Colombia sede Medellín [@SemillerodeR.EscueladeEstadistica2019], cuyo resultado fue un tamaño de muestra mínimo de 371 estudiantes a encuestar.
+
+## Análisis de datos
+
+Para el análisis de datos se utilizaron métodos descriptivos y exploratorios de las preguntas, se realizaron distintas agrupaciones y gráficos de apoyo utilizando el programa de libre acceso R [@R]. Para el manejo, selección y ajustes de los datos se utilizaron los paquetes “tidyr” [@Wickham2019a] y  “dplyr” [@Wickham2019]. Los gráficos de dispersión y las curvas ajustadas de regresión además de ser realizadas con el paquete base se elaboraron también con el paquete “ggplot2” [@Wickham2016]. Para visualizar y evidenciar la correlación de algunas de las variables se utilizó el paquete “corrplot” [@Wei2017]. En algunos casos se mezclaron gráficos en una misma pantalla utilizando el paquete “gridExtra” [@Auguie2017]. Los árboles de decisión que se constituyen como una técnica estadística para la segmentación, la estratificación, la predicción, la reducción de datos y el filtrado de variables, la identificación de interacciones, la fusión de categorías y la discretización de variables continuas [@BerlangaSilvente2013], fueron realizados con el paquete “rpart” [@Therneau2019]], para graficarlos se utilizó el paquete “rpart.plot” [@Milborrow2019]. Se generaron bosques aleatorios como una alternativa de regresión no paramétrica la cual se fundamenta en la inferencia condicional utilizando el paquete “party” [@Hothorn2019]. 
+
+# Resultados 
+
+```{r mifig1, echo=FALSE, fig.cap="Frecuencia preguntas dicotómicas “si” y  “no”, por genero del total de encuestados. ", fig.width=8, fig.height=4,fig.align='center'}
+barwidth = 0.35
+
+val_one <- filter(df2, val == "Si") %>% 
+    group_by(var) %>% arrange(-val) %>% 
+    mutate(pos = cumsum(n) - n / 5)   # calculate the position of the label
+
+val_two <- filter(df2, val == "No") %>% 
+    group_by(var) %>% arrange(-val) %>% 
+    mutate(pos = cumsum(n) - n / 5)  
+
+ggplot() + 
+    geom_bar(data = val_one, 
+             mapping = aes(x = var, y = n, fill = p31), 
+             stat="identity", 
+             position='stack', 
+             width = barwidth) + 
+    geom_text(data = val_one, 
+              aes(x = var, y = pos, label = n ),
+              size=2.5) + 
+    geom_text(data=val_one,
+            aes(x=var,y=-7,label=val),
+            size=3)+
+    geom_bar(data = filter(df2, val=="No"), 
+             mapping = aes(x = as.numeric(var) + barwidth + 0.06, y = n, fill = p31), 
+             stat="identity", 
+             position='stack' , 
+             width = barwidth) + 
+    geom_text(data = val_two, 
+              aes(x = as.numeric(var) + barwidth + 0.06, y = pos, label = n ,),
+              size=2.5,) + 
+    geom_text(data = val_two,
+              aes(x=as.numeric(var) + barwidth + 0.06,y=-6,label=val),
+              size=3)+
+    labs(fill  = "Genero", x="Preguntas", y="Conteo") +
+    theme_classic()+
+    coord_flip()+  
+    scale_fill_jco()
+```
+
+La figura \ref{fig:mifig1} describe las preguntas dicotómicas basadas en las respuestas “si” y “no”, se realizó un conteo por respuesta y dentro de cada respuesta por genero de los encuestados. \newline
+
+```{r mifig2, echo=FALSE, fig.cap="Intensidad horaria de creditos por semana, linea verde horas semanales del promedio de credtios inscritos, linea amarilla horas promedio de creditos mas horas de ocio web, linea roja horas promedio de creditos mas horas de ocio web y horas de sueño ", fig.width=8, fig.height=4,fig.align='center' }
+
+mc <- mean(encuesta$p17,na.rm = T)*3
+mw <- mean(encuesta$p18,na.rm = T)
+md <- mean(encuesta$p19,na.rm = T)
+  ggplot(df4,aes(x=x,y=y,fill=z)) + 
+  geom_bar(stat="identity") + 
+  scale_fill_gradient2(low="green", high="red", mid="yellow",midpoint=mean(df3$ih)-15)+
+  labs(y="Intensidad Horaria por semana (h)", x= "Creditos Inscritos", fill="Horas") +
+  scale_y_continuous(limits = c(0,120),breaks = c(0,10,20,30,40,50,60,70,80,90,100,110,120))+
+  theme_pubclean()+
+  theme(legend.position = "none")+
+  geom_hline( yintercept = c(mc,mw+mc,md+mw+mc),
+             alpha=0.7, 
+             size= 1,
+             linetype="twodash", 
+             color=c("green","gold2","red"))
+
+```
+
+La figura \ref{fig:mifig2} describe las horas de dedicación académica por créditos inscritos, la línea verde representa las horas semanales dedicadas por el promedio de créditos calculado con los datos obtenidos, la línea amarilla representa el valor anteriormente calculado añadiendo las horas de ocio web en la semana y por ultimo la línea roja representa las horas en la semana dedicadas a estudio, ocio web y dormir para el promedio de créditos inscritos obtenido en el presente estudio. 
+
+# Elaboración de tablas
+
+Para construir una tabla se deben tener en cuenta las siguientes recomendaciones. 
+
+- Los números van centrados siempre que tengan la misma cantidad de dígitos, de lo contrario deben ir alineados con el margen derecho del título.
+- Cuando las tablas tienen datos con cifras decimales, el número de éstas debe ser igual dentro de la misma columna, pudiendo variar de columna a columna. 
+- Las tablas se deben nombrar en la parte superior.
+
+La Tabla \ref{tabla:sencilla} mostrada a continuación se elaboró usando instrucciones usuales de LaTex.
+
+\begin{table}[htbp]
+\begin{center}
+\caption{Nombre de la tabla completo.}
+\begin{tabular}{l|l} \hline
+Pais & Ciudad \\ \hline
+Espana & Madrid \\ 
+Espana & Sevilla \\ 
+Francia & Paris \\ \hline
+\end{tabular}
+\label{tabla:sencilla}
+\end{center}
+\end{table}
+
+# Incluyendo código de R
+Es posible incluir código de R en este documento para ilustrar a los lectores en la forma de usar R para realizar algún procedimiento. Se recomienda a los autores [visitar este enlace](https://bookdown.org/yihui/rmarkdown/r-code.html) para conocer más detalles de como incluir código de R. \newline
+
+A continuación un muestra un código de R que genera cien observaciones aleatorias de una normal y luego calcula la media muestral $\bar{x}$. 
+
+```{r fig.height=4, fig.width=5}
+x <- rnorm(n=100, mean=70, sd=5)
+mean(x)
+```
+
+# Elaboración de figuras
+Toda figura debe ir centrada y el título debe ir en la parte inferior
+
+
+```{r mifig231, echo=FALSE, fig.cap="Histograma de valores simulados de una N(0, 1)", fig.width=5, fig.height=4}
+hist(rnorm(100), main='No colocar el titulo aqui, colocarlo abajo',
+     col='deepskyblue3', las=1)
+```
+
+
+
+# Ecuaciones
+Para incluir ecuaciones dentro de un párrafo se usan `$ $` y dentro el símbolo deseado. Por ejemplo, para incluir la letra griega $\mu$ se escribió `$\mu$`. \newline 
+
+Para incluir ecuaciones se pueden usar `$$ $$` y dentro la ecuación. La siguiente ecuación fue hecha usando `$$\mu = \frac{\theta}{\sigma}$$`.
+
+$$\mu = \frac{\theta}{\sigma}$$
+  
+Otra forma de incluir ecuaciones es de la forma usual como se hace en latex, a continuación un ejemplo usando `\begin{equation}` y `\end{equation}`. La ventaja de esta última opción es que la ecuación \ref{energia} sale numerada y se puede citar luego usando `\ref{clave}`.
+
+\begin{equation} \label{energia}
+E = m c^2
+\end{equation}
+
+# Incluyendo referencias
+Todas las referencias deben estar en el archivo `master.bib` para que se puedan invocar en el trabajo. Existen dos formas de citar y son:
+  
+1. Como cita directa, es decir como @xie2013ddrk. Para esto se debe escribir `@xie2013ddrk` y el archivo insertará automaticamente la referencia y la colocará en la última sección de Referencias.
+
+
+<!--
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\vspace*{-0.2in}
+\noindent
+-->
