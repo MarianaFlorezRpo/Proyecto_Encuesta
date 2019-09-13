@@ -11,7 +11,7 @@ author:
 - name: Semillero R - FacCA
   affiliation: Universidad Nacional de Colombia - sede Medellín
 thanks: "**Autor de contacto**: jajaja@unal.edu.co."
-abstract: "__Resumen__: 
+abstract: "__Resumen__: i) Sugerir una forma de afrontar la universidad que permita al estudiante disminuir su posibilidad de desertar; ii) Con un nivel de confianza del 95% se realizó una encuesta a 371 estudiantes de la universidad, que constaba de 35 preguntas distribuidas entre variables continuas y categóricas. El último censo registrado para el semestre 2018-2 da como resultado 10.594 estudiantes matriculados iii) La percepción que se tiene de los docentes, aparentemente es la causa que más pesa a la hora de considerar en desertar de la universidad; iv) Representa una forma de optimizar el uso y aprovechamiento de los recursos del estado, pues en la actualizad escasean.
 En este documento se dan las instrucciones de presentación de trabajos para el Rday Medellín 2019. Este resumen debe contener i) el objetivo del trabajo; ii) el diseño metodológico usado en el trabajo; iii) hallazgos o principales resultados encontrados; y iv) las implicaciones prácticas. El resumen del trabajo debe tener máximo 250 palabras."
 keywords: "pandoc, r markdown, knitr"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
